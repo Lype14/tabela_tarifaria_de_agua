@@ -1,5 +1,7 @@
 package com.example.tabela_tarifaria_de_agua.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +31,6 @@ public class FaixaConsumo {
 
     @ManyToOne
     @JoinColumn(name = "tabela_tarifaria_id", nullable = false)
+    @JsonBackReference
     private TabelaTarifaria tabelaTarifaria;
 }

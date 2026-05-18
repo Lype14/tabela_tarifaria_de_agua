@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,8 +32,8 @@ public class TabelaTarifaria {
     @Column(nullable = false)
     private boolean ativo = true;
 
-    //Vinculação das faixas (se deletar a tabela, todas a faixar relacionadas também serão deletadas)
     @OneToMany(mappedBy = "tabelaTarifaria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<FaixaConsumo> faixas = new ArrayList<>();
 
     @PrePersist

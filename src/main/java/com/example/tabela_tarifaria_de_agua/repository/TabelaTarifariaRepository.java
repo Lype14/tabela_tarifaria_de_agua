@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface TabelaTarifariaRepository extends JpaRepository<TabelaTarifaria, Long> {
+public interface TabelaTarifariaRepository extends JpaRepository<TabelaTarifaria, Integer> {
     
     Optional<TabelaTarifaria> findByAtivoTrue();
 }
