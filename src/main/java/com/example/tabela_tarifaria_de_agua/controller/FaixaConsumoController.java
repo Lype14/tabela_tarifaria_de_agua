@@ -22,7 +22,7 @@ public class FaixaConsumoController {
     private FaixaConsumoService faixaConsumoService;
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<String> editarFaixa(@PathVariable Integer id,@Valid @RequestBody AtualizarPrecoFaixaDTO novoValorUnitario){
         
         faixaConsumoService.editarFaixaConsumo(id,novoValorUnitario);

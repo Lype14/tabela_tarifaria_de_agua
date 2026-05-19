@@ -2,6 +2,7 @@ package com.example.tabela_tarifaria_de_agua.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,10 @@ public class CalculoService {
         BigDecimal valorTotalGeral = BigDecimal.ZERO;
 
         List<FaixaConsumo> faixasDoConsumidor = tabelaAtiva.getFaixas().stream()
-            .filter(f -> f.getConsumidor().toString().equalsIgnoreCase(tipoConsumidor))
-            .toList();
-
+        .filter(f -> f.getConsumidor().toString().equalsIgnoreCase(tipoConsumidor))
+        .sorted(Comparator.comparing(FaixaConsumo::getConsumoInicial)) 
+        .toList();
+       
         if (faixasDoConsumidor.isEmpty()) {
             throw new IllegalArgumentException("Nenhuma faixa encontrada para a categoria: " + tipoConsumidor);
         }
