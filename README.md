@@ -132,3 +132,192 @@ Insere uma nova parametrização de tabela com suas respectivas faixas de consum
   ]
 }
 ```
+### Response
+
+```text
+Tabela tarifária cadastrada com sucesso com suas respectivas faixas!
+```
+
+> **Observação:** o sistema suporta 4 tipos de consumidores:
+> `COMERCIAL`, `INDUSTRIAL`, `PARTICULAR` e `PUBLICO`.
+
+---
+
+## 2. Editar Valor Unitário de uma Faixa de Consumo
+
+Permite alterar o valor unitário de uma faixa de consumo já cadastrada.
+
+- **Método HTTP:** `PUT`
+- **URL:** `http://localhost:8080/api/faixa-consumo/{id}`
+
+### Request Body (JSON)
+
+```json
+{
+  "novoValorUnitario": 2
+}
+```
+
+### Response
+
+```text
+Faixa de consumo editada com sucesso!
+```
+
+> **Observação:** caso o `id` não exista ou haja inconsistência nos dados, o sistema retornará uma exceção com a descrição do erro.
+
+---
+
+## 3. Listar Histórico de Tabelas Tarifárias
+
+Lista todas as tabelas tarifárias cadastradas, incluindo as ativas e inativas.
+
+- **Método HTTP:** `GET`
+- **URL:** `http://localhost:8080/api/tabelas-tarifarias`
+
+### Response (JSON)
+
+```json
+[
+  {
+    "ativo": true,
+    "dataCriacao": "2026-05-17",
+    "dataVigencia": "2026-05-20",
+    "faixas": [
+      {
+        "consumidor": "PARTICULAR",
+        "consumoFinal": 10,
+        "consumoInicial": 0,
+        "id": 5,
+        "valorUnitario": 1.5
+      },
+      {
+        "consumidor": "PARTICULAR",
+        "consumoFinal": 99999,
+        "consumoInicial": 11,
+        "id": 6,
+        "valorUnitario": 3.4
+      },
+      {
+        "consumidor": "INDUSTRIAL",
+        "consumoFinal": 99999,
+        "consumoInicial": 21,
+        "id": 8,
+        "valorUnitario": 7.8
+      },
+      {
+        "consumidor": "INDUSTRIAL",
+        "consumoFinal": 20,
+        "consumoInicial": 0,
+        "id": 7,
+        "valorUnitario": 2.74
+      }
+    ],
+    "id": 2,
+    "nome": "Tabela Tarifária de Água 2026"
+  },
+  {
+    "ativo": false,
+    "dataCriacao": "2026-05-16",
+    "dataVigencia": "2026-05-20",
+    "faixas": [
+      {
+        "consumidor": "PARTICULAR",
+        "consumoFinal": 10,
+        "consumoInicial": 0,
+        "id": 1,
+        "valorUnitario": 1.5
+      },
+      {
+        "consumidor": "PARTICULAR",
+        "consumoFinal": 99999,
+        "consumoInicial": 11,
+        "id": 2,
+        "valorUnitario": 3.4
+      },
+      {
+        "consumidor": "INDUSTRIAL",
+        "consumoFinal": 20,
+        "consumoInicial": 0,
+        "id": 3,
+        "valorUnitario": 4.5
+      },
+      {
+        "consumidor": "INDUSTRIAL",
+        "consumoFinal": 99999,
+        "consumoInicial": 21,
+        "id": 4,
+        "valorUnitario": 7.8
+      }
+    ],
+    "id": 1,
+    "nome": "Tabela Tarifária de Água 2026"
+  }
+]
+```
+
+---
+
+## 4. Remover Tabela Tarifária
+
+Remove uma tabela tarifária e todas as faixas de consumo associadas.
+
+- **Método HTTP:** `DELETE`
+- **URL:** `http://localhost:8080/api/tabelas-tarifarias/{id}`
+
+### Response
+
+```text
+Tabela tarifária e todas as suas faixas de consumo foram excluídas com sucesso!
+```
+
+> **Observação:** a exclusão só será realizada caso o `id` informado exista na base de dados.
+
+---
+
+## 5. Realizar Cálculo de Consumo
+
+Realiza o cálculo progressivo do valor da conta de água com base no consumo e categoria informados.
+
+- **Método HTTP:** `POST`
+- **URL:** `http://localhost:8080/api/calculos`
+
+### Request Body (JSON)
+
+```json
+{
+  "consumo": 30,
+  "categoria": "INDUSTRIAL"
+}
+```
+
+### Response (JSON)
+
+```json
+{
+  "categoria": "INDUSTRIAL",
+  "consumoTotal": 30,
+  "valorTotal": 112.0,
+  "detalhamento": [
+    {
+      "faixa": {
+        "inicio": 0,
+        "fim": 20
+      },
+      "m3Cobrados": 20,
+      "valorUnitario": 2.0,
+      "subtotal": 40.0
+    },
+    {
+      "faixa": {
+        "inicio": 21,
+        "fim": 99999
+      },
+      "m3Cobrados": 9,
+      "valorUnitario": 8.0,
+      "subtotal": 72.0
+    }
+  ]
+}
+```
+
