@@ -323,3 +323,41 @@ Realiza o cálculo progressivo do valor da conta de água com base no consumo e 
 ## Como testar a aplicação
 
 Anexado a este repositório está o arquivo `tabela_tarifaria_postman_collection.json`, que contém todas as rotas da API com exemplos de requisições prontos para importação no Postman, facilitando os testes dos endpoints.
+
+## Script para criação manual das tabelas (opcional)
+
+> O sistema cria automaticamente as tabelas no banco de dados ao executar a aplicação, utilizando o Hibernate.  
+> O script abaixo é apenas uma referência para criação manual no PostgreSQL, se necessário.
+
+```sql
+-- 1. Criação da tabela tarifária
+CREATE TABLE public.tb_tabela_tarifaria (
+    id SERIAL,
+    ativo BOOLEAN NOT NULL,
+    data_criacao DATE NOT NULL,
+    data_vigencia DATE NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+
+    CONSTRAINT tb_tabela_tarifaria_pkey PRIMARY KEY (id)
+);
+
+-- 2. Criação da tabela faixa de consumo
+CREATE TABLE public.tb_faixa_consumo (
+    id SERIAL,
+    consumidor VARCHAR(255) NOT NULL,
+    consumo_final INTEGER NOT NULL,
+    consumo_inicial INTEGER NOT NULL,
+    valor_unitario REAL NOT NULL,
+    tabela_tarifaria_id INTEGER NOT NULL,
+
+    CONSTRAINT tb_faixa_consumo_pkey PRIMARY KEY (id),
+
+    CONSTRAINT fk_tabela_tarifaria FOREIGN KEY (tabela_tarifaria_id)
+        REFERENCES public.tb_tabela_tarifaria (id)
+        ON DELETE CASCADE
+);
+
+-- 3. Criação de índice para otimização
+CREATE INDEX idx_tb_faixa_consumo_tabela_id
+ON public.tb_faixa_consumo(tabela_tarifaria_id);
+```
