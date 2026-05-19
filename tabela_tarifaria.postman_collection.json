@@ -1,0 +1,104 @@
+{
+  "info": {
+    "_postman_id": "3f5d0150-3c93-40ef-9b47-d1f6c6185903",
+    "name": "tabela_tarifaria",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49343618",
+    "_collection_link": "https://go.postman.co/collection/49343618-3f5d0150-3c93-40ef-9b47-d1f6c6185903?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Tabela Tarifária de Água 2026\",\r\n  \"dataVigencia\": \"2026-05-20\",\r\n  \"faixas\": [\r\n    {\r\n      \"consumidor\": \"PARTICULAR\",\r\n      \"consumoInicial\": 0,\r\n      \"consumoFinal\": 10,\r\n      \"valorUnitario\": 1.50\r\n    },\r\n    {\r\n      \"consumidor\": \"PARTICULAR\",\r\n      \"consumoInicial\": 11,\r\n      \"consumoFinal\": 99999,\r\n      \"valorUnitario\": 3.40\r\n    },\r\n    {\r\n      \"consumidor\": \"INDUSTRIAL\",\r\n      \"consumoInicial\": 0,\r\n      \"consumoFinal\": 20,\r\n      \"valorUnitario\": 4.50\r\n    },\r\n    {\r\n      \"consumidor\": \"INDUSTRIAL\",\r\n      \"consumoInicial\": 21,\r\n      \"consumoFinal\": 99999,\r\n      \"valorUnitario\": 7.80\r\n    }\r\n  ]\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/tabelas-tarifarias/criar-tabela",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "tabelas-tarifarias",
+            "criar-tabela"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"consumidor\": \"INDUSTRIAL\",\r\n  \"consumoInicial\": 0,\r\n  \"consumoFinal\": 20,\r\n  \"valorUnitario\": 2.85 \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/faixa-consumo/editar-faixa/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "faixa-consumo",
+            "editar-faixa",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/tabelas-tarifarias/{id}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "tabelas-tarifarias",
+            "{id}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
