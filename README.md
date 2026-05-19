@@ -320,4 +320,6 @@ Realiza o cálculo progressivo do valor da conta de água com base no consumo e 
   ]
 }
 ```
+## Como testar a aplicação
 
+Anexado a este repositório está o arquivo `tabela_tarifaria_postman_collection.json`, que contém todas as rotas da API com exemplos de requisições prontos para importação no Postman, facilitando os testes dos endpoints.
